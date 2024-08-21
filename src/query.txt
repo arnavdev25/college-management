@@ -1,8 +1,8 @@
-psql -U postgres
+psql -U postgres  -> login to psql
 
-create database college
-\c college
-\dt
+create database college   -> create db
+\c college     -> change db
+\dt      ->  show tables
 
 CREATE TABLE students(
     id SERIAL PRIMARY KEY,
@@ -12,4 +12,9 @@ CREATE TABLE students(
     age INT NOT NULL,
     gender VARCHAR(10) NOT NULL,
     class TEXT DEFAULT NULL
-)
+)    -> create table
+
+ALTER TABLE ADD COLUMN hobby TEXT DEFAULT NULL;   -> to add column to existing table
+
+
+ALTER TABLE students ALTER COLUMN father_name TYPE VARCHAR(10)   -> to modify column to existing table

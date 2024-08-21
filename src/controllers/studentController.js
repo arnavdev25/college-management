@@ -30,3 +30,21 @@ module.exports.studentList = async (req, res) => {
         console.log(ex);
     }
 }
+
+
+module.exports.updateStudent = async (req, res) => {
+    try {
+        const required_fields = ['id']
+        const vallidation_error = validationHelper.validation(required_fields, req.body)
+
+        if (vallidation_error.length) {
+            return res.json({ success: 0, status: app_constants.BAD_REQUEST, message: vallidation_error.join(',') })
+        }
+
+        const update_student = await studentService.updateStudent(req.body)
+        return res.json(update_student)
+    }
+    catch (ex) {
+        console.log(ex);
+    }
+}
