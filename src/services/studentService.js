@@ -18,11 +18,19 @@ module.exports.addStudent = async (data) => {
 
 
 module.exports.studentList = async (data) => {
-    const query = `SELECT * FROM students`
-    const students_list = await pg_connection.query(query, [])
+    const limit = data.limit ? data.limit : 100000;
+    const offset = data.offset ? data.offset : 0;
+
+    const query = `SELECT * FROM students limit $1 offset $2`
+    const total_count_query = `SELECT COUNT(*) FROM students`
+
+    const [students_list, total_count_res] = await Promise.all([
+        pg_connection.query(query, [limit, offset]),
+        pg_connection.query(total_count_query, [])
+    ])
 
     if (students_list && students_list.rows) {
-        return { success: 1, status: app_constants.SUCCESS, message: 'Student list fetched successfully!', result: students_list.rows }
+        return { success: 1, status: app_constants.SUCCESS, message: 'Student list fetched successfully!', total_count: total_count_res.rows.length ? total_count_res.rows[0].count : 0, result: students_list.rows }
     }
 
     return { success: 0, status: app_constants.INTERNAL_SERVER_ERROR, message: 'Internal server error!' }

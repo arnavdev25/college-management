@@ -23,7 +23,7 @@ module.exports.addStudent = async (req, res) => {
 
 module.exports.studentList = async (req, res) => {
     try {
-        const get_students = await studentService.studentList(req.body)
+        const get_students = await studentService.studentList(req.query)
         return res.json(get_students)
     }
     catch (ex) {

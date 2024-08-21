@@ -1,7 +1,7 @@
 const express = require('express');
 require('dotenv').config()
 const studentRoute = require('./routes/studentRoute')
-require('./helpers/postgres')
+
 
 const app = express()
 app.use(express.json())

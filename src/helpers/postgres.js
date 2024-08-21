@@ -11,4 +11,7 @@ const pg_connection = new Pool({
 })
 
 
+// pg_connection.connect().
+
+
 module.exports = pg_connection;
